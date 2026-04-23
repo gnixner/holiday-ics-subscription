@@ -162,7 +162,7 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "class HolidayParticleField" in landing_page
     assert "有些日子，值得留下" in landing_page
     assert "把重要的日子，留在眼前" in landing_page
-    assert "母亲节、父亲节这样的日子，也能被记住。" in landing_page
+    assert "它们不必热闹，也值得被记住。" in landing_page
     assert "收下全部" in landing_page
     assert 'content="width=device-width, initial-scale=1"' in landing_page
     assert "font-family: 'PingFang SC', 'Noto Sans SC'" in landing_page

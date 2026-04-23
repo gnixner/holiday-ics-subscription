@@ -526,7 +526,7 @@ def render_index(base_url: str) -> str:
         '          <div class="intro">',
         '            <p class="kicker">有些日子，值得留下</p>',
         '            <h1>把重要的日子，留在眼前</h1>',
-        '            <p class="lead">它们不必热闹。母亲节、父亲节这样的日子，也能被记住。</p>',
+        '            <p class="lead">它们不必热闹，也值得被记住。</p>',
         '            <div class="meta-row">',
         '              <span class="meta-pill"><span class="meta-dot"></span>已经验证</span>',
         '              <span class="meta-pill"><span class="meta-dot"></span>按主题整理</span>',
