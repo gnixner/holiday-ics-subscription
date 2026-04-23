@@ -78,15 +78,56 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     landing_page = Path(outputs["index.html"]).read_text(encoding="utf-8")
     assert "https://calendar.example.com/all.ics" in landing_page
     assert "https://calendar.example.com/environment.ics" in landing_page
-    assert "其他节日（全部）" in landing_page
+    assert ">全部<" in landing_page
+    assert ">环保与社会议题<" in landing_page
+    assert ">文化与阅读<" in landing_page
+    assert ">常见节庆<" in landing_page
+    assert "其他节日（全部）" not in landing_page
+    assert "其他节日（环保与社会议题）" not in landing_page
+    assert "其他节日（文化与阅读）" not in landing_page
+    assert "其他节日（常见节庆）" not in landing_page
     assert 'id="three-scene"' in landing_page
     assert 'https://unpkg.com/three@0.164.1/build/three.module.js' in landing_page
     assert "class HolidayParticleField" in landing_page
-    assert 'class="enter-stage"' in landing_page
-    assert "进入节日宇宙" in landing_page
-    assert "Menu" in landing_page
-    assert "ABOUT" in landing_page
-    assert "holiday observance archive" in landing_page
-    assert "将国际节日放进你的日历星图" in landing_page
-    assert "订阅全部节日" in landing_page
+    assert "有些日子，值得留下" in landing_page
+    assert "把重要的日子，留在眼前" in landing_page
+    assert "收下全部" in landing_page
+    assert 'content="width=device-width, initial-scale=1"' in landing_page
+    assert "font-family: 'PingFang SC', 'Noto Sans SC'" in landing_page
+    assert 'color: var(--text-strong);' in landing_page
+    assert 'color: var(--text-muted);' in landing_page
+    assert '@media (max-width: 960px)' in landing_page
+    assert '@media (max-width: 640px)' in landing_page
+    assert 'grid-template-columns: 1fr;' in landing_page
+    assert 'height: 100dvh' in landing_page
+    assert 'padding: 1.15rem 1rem 6.25rem' in landing_page
+    assert 'h1 { font-size: clamp(2rem, 10vw, 2.95rem); max-width: 7.2ch; }' in landing_page
+    assert 'gap: 0.55rem;' in landing_page
+    assert 'width: 100%; justify-content: flex-start; padding: 0.8rem 0.95rem;' in landing_page
+    assert 'background: rgba(255,255,255,0.045);' in landing_page
+    assert 'border: 1px solid rgba(255,255,255,0.08);' in landing_page
+    assert 'min-height: 3.35rem' in landing_page
+    assert 'font-weight: 500;' in landing_page
+    assert 'background: linear-gradient(180deg, rgba(34, 26, 31, 0.56), rgba(19, 15, 19, 0.48));' in landing_page
+    assert 'border: 1px solid rgba(255,255,255,0.09);' in landing_page
+    assert 'touchstart' in landing_page
+    assert 'touchend' in landing_page
+    assert 'class="page-track"' in landing_page
+    assert 'class="page-panel page-panel-hero is-active"' in landing_page
+    assert 'data-page-nav="prev"' in landing_page
+    assert 'data-page-nav="next"' in landing_page
+    assert 'data-page-jump="1"' in landing_page
+    assert "handleWheel" in landing_page
+    assert "复制链接" in landing_page
+    assert "navigator.clipboard.writeText" in landing_page
+    assert 'id="copy-toast"' in landing_page
+    assert "链接已复制" in landing_page
+    assert 'class="enter-stage"' not in landing_page
+    assert "进入节日宇宙" not in landing_page
+    assert "Menu" not in landing_page
+    assert "ABOUT" not in landing_page
+    assert "Other Holidays Archive" not in landing_page
+    assert "Three.js 真 3D 粒子背景 + 左右翻页式首页切换。" not in landing_page
+    assert "复制 / 打开链接" not in landing_page
+    assert "左右翻页在首页、订阅页与说明页之间切换" not in landing_page
     assert "audio-track" not in landing_page
