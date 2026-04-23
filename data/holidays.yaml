@@ -64,6 +64,18 @@
   enabled: true
   source: manual-curation
 
+- id: dragon-head-raising-day
+  name_zh: 龙抬头
+  name_en: Dragon Heads-raising Day
+  rule_type: lunar_date
+  lunar_month: 2
+  lunar_day: 2
+  categories:
+    - festivals
+  description: 农历二月初二，常被视作春耕与新岁启运的节点。
+  enabled: true
+  source: manual-curation
+
 - id: world-water-day
   name_zh: 世界水日
   name_en: World Water Day
@@ -96,6 +108,28 @@
   description: 呼吁关注全球公共卫生与健康公平。
   enabled: true
   source: manual-curation
+
+- id: good-friday
+  name_zh: 耶稣受难日
+  name_en: Good Friday
+  rule_type: easter_relative
+  offset_days: -2
+  categories:
+    - festivals
+  description: 复活节前的星期五。
+  enabled: true
+  source: apple-us-reference
+
+- id: easter
+  name_zh: 复活节
+  name_en: Easter
+  rule_type: easter_relative
+  offset_days: 0
+  categories:
+    - festivals
+  description: 春季的重要西方节日，每年日期随复活节计算规则变化。
+  enabled: true
+  source: apple-us-reference
 
 - id: earth-day
   name_zh: 地球日
@@ -333,6 +367,43 @@
   description: 十一月的第四个星期四，留给感谢与团聚。
   enabled: true
   source: apple-us-reference
+
+- id: black-friday
+  name_zh: 黑色星期五
+  name_en: Black Friday
+  rule_type: nth_weekday_of_month
+  month: 11
+  nth: 4
+  weekday: 4
+  categories:
+    - festivals
+  description: 感恩节后的星期五，常被视作年末消费季的开端。
+  enabled: true
+  source: apple-us-derived
+
+- id: laba-festival
+  name_zh: 腊八节
+  name_en: Laba Festival
+  rule_type: lunar_date
+  lunar_month: 12
+  lunar_day: 8
+  categories:
+    - festivals
+  description: 农历腊月初八，常与岁末团圆和节令饮食相关。
+  enabled: true
+  source: manual-curation
+
+- id: xiaonian
+  name_zh: 小年
+  name_en: Little New Year
+  rule_type: lunar_date
+  lunar_month: 12
+  lunar_day: 23
+  categories:
+    - festivals
+  description: 农历腊月二十三，常被视作迎接春节的前奏。
+  enabled: true
+  source: manual-curation
 
 - id: christmas-eve
   name_zh: 平安夜

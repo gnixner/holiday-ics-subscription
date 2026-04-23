@@ -12,7 +12,14 @@ MAINLAND_CONFLICT_DATES = {(1, 1), (5, 1)}
 BASE_REQUIRED_FIELDS = {"id", "name_zh", "categories", "enabled"}
 RULE_TYPE_FIXED_DATE = "fixed_date"
 RULE_TYPE_NTH_WEEKDAY = "nth_weekday_of_month"
-ALLOWED_RULE_TYPES = {RULE_TYPE_FIXED_DATE, RULE_TYPE_NTH_WEEKDAY}
+RULE_TYPE_EASTER_RELATIVE = "easter_relative"
+RULE_TYPE_LUNAR_DATE = "lunar_date"
+ALLOWED_RULE_TYPES = {
+    RULE_TYPE_FIXED_DATE,
+    RULE_TYPE_NTH_WEEKDAY,
+    RULE_TYPE_EASTER_RELATIVE,
+    RULE_TYPE_LUNAR_DATE,
+}
 APPLE_CHINA_HOLIDAY_NAMES = {
     "七夕节",
     "中秋节",
@@ -95,29 +102,56 @@ def validate_rule_values(holidays: Iterable[dict]) -> None:
         if rule_type not in ALLOWED_RULE_TYPES:
             raise ValueError(f"holiday {holiday['id']} has invalid rule_type: {rule_type}")
 
-        month = int(holiday["month"])
         if rule_type == RULE_TYPE_FIXED_DATE:
-            if "day" not in holiday:
-                raise ValueError(f"holiday {holiday['id']} missing fields: ['day']")
+            if "month" not in holiday or "day" not in holiday:
+                raise ValueError(f"holiday {holiday['id']} missing fields: ['month', 'day']")
+            if "lunar_month" in holiday or "lunar_day" in holiday or "offset_days" in holiday:
+                raise ValueError(f"holiday {holiday['id']} mixes incompatible fields for {rule_type}")
+            month = int(holiday["month"])
             try:
                 date(2024, month, int(holiday["day"]))
             except Exception as exc:  # noqa: BLE001
                 raise ValueError(f"invalid date for {holiday['id']}") from exc
             continue
 
-        if "day" in holiday:
-            raise ValueError(f"holiday {holiday['id']} should not define day for {rule_type}")
-        if "nth" not in holiday or "weekday" not in holiday:
-            raise ValueError(f"holiday {holiday['id']} missing fields for {rule_type}: ['nth', 'weekday']")
+        if rule_type == RULE_TYPE_NTH_WEEKDAY:
+            if "month" not in holiday:
+                raise ValueError(f"holiday {holiday['id']} missing fields for {rule_type}: ['month', 'nth', 'weekday']")
+            if "day" in holiday:
+                raise ValueError(f"holiday {holiday['id']} should not define day for {rule_type}")
+            if "nth" not in holiday or "weekday" not in holiday:
+                raise ValueError(f"holiday {holiday['id']} missing fields for {rule_type}: ['nth', 'weekday']")
 
-        nth = int(holiday["nth"])
-        weekday = int(holiday["weekday"])
-        if nth not in {1, 2, 3, 4, -1}:
-            raise ValueError(f"holiday {holiday['id']} has invalid nth: {nth}")
-        if weekday < 0 or weekday > 6:
-            raise ValueError(f"holiday {holiday['id']} has invalid weekday: {weekday}")
-        if month < 1 or month > 12:
-            raise ValueError(f"holiday {holiday['id']} has invalid month: {month}")
+            month = int(holiday["month"])
+            nth = int(holiday["nth"])
+            weekday = int(holiday["weekday"])
+            if nth not in {1, 2, 3, 4, -1}:
+                raise ValueError(f"holiday {holiday['id']} has invalid nth: {nth}")
+            if weekday < 0 or weekday > 6:
+                raise ValueError(f"holiday {holiday['id']} has invalid weekday: {weekday}")
+            if month < 1 or month > 12:
+                raise ValueError(f"holiday {holiday['id']} has invalid month: {month}")
+            continue
+
+        if rule_type == RULE_TYPE_EASTER_RELATIVE:
+            if "offset_days" not in holiday:
+                raise ValueError(f"holiday {holiday['id']} missing fields for {rule_type}: ['offset_days']")
+            try:
+                int(holiday["offset_days"])
+            except Exception as exc:  # noqa: BLE001
+                raise ValueError(f"holiday {holiday['id']} has invalid offset_days") from exc
+            continue
+
+        if rule_type == RULE_TYPE_LUNAR_DATE:
+            if "lunar_month" not in holiday or "lunar_day" not in holiday:
+                raise ValueError(f"holiday {holiday['id']} missing fields for {rule_type}: ['lunar_month', 'lunar_day']")
+            lunar_month = int(holiday["lunar_month"])
+            lunar_day = int(holiday["lunar_day"])
+            if lunar_month < 1 or lunar_month > 12:
+                raise ValueError(f"holiday {holiday['id']} has invalid lunar_month: {lunar_month}")
+            if lunar_day < 1 or lunar_day > 30:
+                raise ValueError(f"holiday {holiday['id']} has invalid lunar_day: {lunar_day}")
+            continue
 
 
 def validate_categories(holidays: Iterable[dict]) -> None:

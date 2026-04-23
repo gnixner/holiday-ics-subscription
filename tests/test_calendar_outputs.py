@@ -67,6 +67,43 @@ def test_expand_nth_weekday_holiday_event():
     assert event["end"] == "20260511"
 
 
+def test_expand_easter_relative_holiday_event():
+    holiday = {
+        "id": "good-friday",
+        "name_zh": "耶稣受难日",
+        "rule_type": "easter_relative",
+        "offset_days": -2,
+        "categories": ["festivals"],
+        "description": "复活节前的星期五。",
+        "enabled": True,
+    }
+
+    event = expand_holiday(holiday, 2026, "calendar.local")
+
+    assert event["summary"] == "耶稣受难日"
+    assert event["start"] == "20260403"
+    assert event["end"] == "20260404"
+
+
+def test_expand_lunar_holiday_event():
+    holiday = {
+        "id": "dragon-head-raising-day",
+        "name_zh": "龙抬头",
+        "rule_type": "lunar_date",
+        "lunar_month": 2,
+        "lunar_day": 2,
+        "categories": ["festivals"],
+        "description": "农历二月初二。",
+        "enabled": True,
+    }
+
+    event = expand_holiday(holiday, 2026, "calendar.local")
+
+    assert event["summary"] == "龙抬头"
+    assert event["start"] == "20260320"
+    assert event["end"] == "20260321"
+
+
 def test_build_all_calendars_writes_expected_files(tmp_path):
     holidays = load_holidays("data/holidays.yaml")
 
@@ -94,10 +131,16 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "SUMMARY:母亲节" in all_content
     assert "SUMMARY:父亲节" in all_content
     assert "SUMMARY:感恩节" in all_content
+    assert "SUMMARY:复活节" in all_content
+    assert "SUMMARY:耶稣受难日" in all_content
+    assert "SUMMARY:黑色星期五" in all_content
     assert "SUMMARY:教师节" in all_content
     assert "SUMMARY:植树节" in all_content
     assert "SUMMARY:情人节" in all_content
     assert "SUMMARY:平安夜" in all_content
+    assert "SUMMARY:腊八节" in all_content
+    assert "SUMMARY:小年" in all_content
+    assert "SUMMARY:龙抬头" in all_content
     assert "国际妇女节" not in all_content
     assert "元旦" not in all_content
     assert "国际劳动节" not in all_content

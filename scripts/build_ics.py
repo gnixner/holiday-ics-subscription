@@ -6,6 +6,8 @@ import argparse
 import sys
 from typing import Iterable
 
+from lunardate import LunarDate
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
@@ -69,6 +71,28 @@ def resolve_nth_weekday_date(year: int, month: int, nth: int, weekday: int) -> d
     return last_day - timedelta(days=days_back)
 
 
+def calculate_western_easter(year: int) -> date:
+    a = year % 19
+    b = year // 100
+    c = year % 100
+    d = b // 4
+    e = b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c // 4
+    k = c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    month = (h + l - 7 * m + 114) // 31
+    day = ((h + l - 7 * m + 114) % 31) + 1
+    return date(year, month, day)
+
+
+def resolve_lunar_date(year: int, lunar_month: int, lunar_day: int) -> date:
+    return LunarDate(year, lunar_month, lunar_day, 0).toSolarDate()
+
+
 def resolve_holiday_date(holiday: dict, year: int) -> date:
     rule_type = holiday.get("rule_type", "fixed_date")
     if rule_type == "nth_weekday_of_month":
@@ -78,6 +102,10 @@ def resolve_holiday_date(holiday: dict, year: int) -> date:
             int(holiday["nth"]),
             int(holiday["weekday"]),
         )
+    if rule_type == "easter_relative":
+        return calculate_western_easter(year) + timedelta(days=int(holiday["offset_days"]))
+    if rule_type == "lunar_date":
+        return resolve_lunar_date(year, int(holiday["lunar_month"]), int(holiday["lunar_day"]))
     return date(year, int(holiday["month"]), int(holiday["day"]))
 
 

@@ -27,3 +27,18 @@ def test_uid_rule_type_does_not_change_uid_shape():
 
     event = expand_holiday(holiday, 2026, "calendar.local")
     assert event["uid"] == "mothers-day-2026@calendar.local"
+
+
+def test_uid_is_stable_for_lunar_rule_type():
+    holiday = {
+        "id": "dragon-head-raising-day",
+        "name_zh": "龙抬头",
+        "rule_type": "lunar_date",
+        "lunar_month": 2,
+        "lunar_day": 2,
+        "categories": ["festivals"],
+        "enabled": True,
+    }
+
+    event = expand_holiday(holiday, 2026, "calendar.local")
+    assert event["uid"] == "dragon-head-raising-day-2026@calendar.local"
