@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 import argparse
 import sys
@@ -54,8 +54,35 @@ def build_uid(holiday_id: str, year: int, domain: str) -> str:
     return f"{holiday_id}-{year}@{domain}"
 
 
+def resolve_nth_weekday_date(year: int, month: int, nth: int, weekday: int) -> date:
+    if nth > 0:
+        first_day = date(year, month, 1)
+        days_until_weekday = (weekday - first_day.weekday()) % 7
+        return first_day + timedelta(days=days_until_weekday + (nth - 1) * 7)
+
+    if month == 12:
+        next_month = date(year + 1, 1, 1)
+    else:
+        next_month = date(year, month + 1, 1)
+    last_day = next_month - timedelta(days=1)
+    days_back = (last_day.weekday() - weekday) % 7
+    return last_day - timedelta(days=days_back)
+
+
+def resolve_holiday_date(holiday: dict, year: int) -> date:
+    rule_type = holiday.get("rule_type", "fixed_date")
+    if rule_type == "nth_weekday_of_month":
+        return resolve_nth_weekday_date(
+            year,
+            int(holiday["month"]),
+            int(holiday["nth"]),
+            int(holiday["weekday"]),
+        )
+    return date(year, int(holiday["month"]), int(holiday["day"]))
+
+
 def expand_holiday(holiday: dict, year: int, domain: str) -> dict:
-    start_date = date(year, int(holiday["month"]), int(holiday["day"]))
+    start_date = resolve_holiday_date(holiday, year)
     end_date = start_date.fromordinal(start_date.toordinal() + 1)
     return {
         "uid": build_uid(holiday["id"], year, domain),
@@ -471,7 +498,7 @@ def render_index(base_url: str) -> str:
         '          <div class="intro">',
         '            <p class="kicker">有些日子，值得留下</p>',
         '            <h1>把重要的日子，留在眼前</h1>',
-        '            <p class="lead">它们不必热闹。只要被记住。</p>',
+        '            <p class="lead">它们不必热闹。母亲节、父亲节这样的日子，也能被记住。</p>',
         '            <div class="meta-row">',
         '              <span class="meta-pill"><span class="meta-dot"></span>已经验证</span>',
         '              <span class="meta-pill"><span class="meta-dot"></span>按主题整理</span>',

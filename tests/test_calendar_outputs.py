@@ -47,6 +47,26 @@ def test_expand_holiday_to_single_day_event():
     assert event["transp"] == "TRANSPARENT"
 
 
+def test_expand_nth_weekday_holiday_event():
+    holiday = {
+        "id": "mothers-day",
+        "name_zh": "母亲节",
+        "rule_type": "nth_weekday_of_month",
+        "month": 5,
+        "nth": 2,
+        "weekday": 6,
+        "categories": ["festivals"],
+        "description": "五月的第二个星期日。",
+        "enabled": True,
+    }
+
+    event = expand_holiday(holiday, 2026, "calendar.local")
+
+    assert event["summary"] == "母亲节"
+    assert event["start"] == "20260510"
+    assert event["end"] == "20260511"
+
+
 def test_build_all_calendars_writes_expected_files(tmp_path):
     holidays = load_holidays("data/holidays.yaml")
 
@@ -71,6 +91,14 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "SUMMARY:地球日" in all_content
     assert "SUMMARY:世界读书日" in all_content
     assert "SUMMARY:圣诞节" in all_content
+    assert "SUMMARY:母亲节" in all_content
+    assert "SUMMARY:父亲节" in all_content
+    assert "SUMMARY:感恩节" in all_content
+    assert "SUMMARY:教师节" in all_content
+    assert "SUMMARY:植树节" in all_content
+    assert "SUMMARY:情人节" in all_content
+    assert "SUMMARY:平安夜" in all_content
+    assert "国际妇女节" not in all_content
     assert "元旦" not in all_content
     assert "国际劳动节" not in all_content
     assert "X-WR-CALNAME:其他节日（全部）" in all_content
@@ -91,6 +119,7 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "class HolidayParticleField" in landing_page
     assert "有些日子，值得留下" in landing_page
     assert "把重要的日子，留在眼前" in landing_page
+    assert "母亲节、父亲节这样的日子，也能被记住。" in landing_page
     assert "收下全部" in landing_page
     assert 'content="width=device-width, initial-scale=1"' in landing_page
     assert "font-family: 'PingFang SC', 'Noto Sans SC'" in landing_page

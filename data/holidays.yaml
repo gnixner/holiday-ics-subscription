@@ -53,14 +53,14 @@
   enabled: true
   source: manual-curation
 
-- id: international-womens-day
-  name_zh: 国际妇女节
-  name_en: International Women's Day
+- id: arbor-day
+  name_zh: 植树节
+  name_en: Arbor Day
   month: 3
-  day: 8
+  day: 12
   categories:
     - environment
-  description: 关注性别平等与女性权益的国际主题日。
+  description: 倡导植树造林与生态保护意识的公共纪念日。
   enabled: true
   source: manual-curation
 
@@ -152,6 +152,19 @@
   enabled: true
   source: manual-curation
 
+- id: mothers-day
+  name_zh: 母亲节
+  name_en: Mother's Day
+  rule_type: nth_weekday_of_month
+  month: 5
+  nth: 2
+  weekday: 6
+  categories:
+    - festivals
+  description: 五月的第二个星期日，留给母亲的感谢与陪伴。
+  enabled: true
+  source: apple-us-reference
+
 - id: world-no-tobacco-day
   name_zh: 世界无烟日
   name_en: World No Tobacco Day
@@ -185,6 +198,19 @@
   enabled: true
   source: manual-curation
 
+- id: fathers-day
+  name_zh: 父亲节
+  name_en: Father's Day
+  rule_type: nth_weekday_of_month
+  month: 6
+  nth: 3
+  weekday: 6
+  categories:
+    - festivals
+  description: 六月的第三个星期日，留给父亲的感谢与陪伴。
+  enabled: true
+  source: apple-us-reference
+
 - id: world-refugee-day
   name_zh: 世界难民日
   name_en: World Refugee Day
@@ -215,6 +241,17 @@
   categories:
     - culture-reading
   description: 强调读写能力对个人发展与社会进步的重要性。
+  enabled: true
+  source: manual-curation
+
+- id: teachers-day
+  name_zh: 教师节
+  name_en: Teachers' Day
+  month: 9
+  day: 10
+  categories:
+    - culture-reading
+  description: 留给教师与教育工作者的感谢与致意。
   enabled: true
   source: manual-curation
 
@@ -281,6 +318,30 @@
   categories:
     - environment
   description: 倡导宽容、包容与多元共处的公共价值。
+  enabled: true
+  source: manual-curation
+
+- id: thanksgiving
+  name_zh: 感恩节
+  name_en: Thanksgiving
+  rule_type: nth_weekday_of_month
+  month: 11
+  nth: 4
+  weekday: 3
+  categories:
+    - festivals
+  description: 十一月的第四个星期四，留给感谢与团聚。
+  enabled: true
+  source: apple-us-reference
+
+- id: christmas-eve
+  name_zh: 平安夜
+  name_en: Christmas Eve
+  month: 12
+  day: 24
+  categories:
+    - festivals
+  description: 圣诞前夜，适合为节庆留一晚的提醒。
   enabled: true
   source: manual-curation
 
