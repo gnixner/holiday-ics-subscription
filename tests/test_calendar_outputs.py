@@ -180,8 +180,10 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert 'border: 1px solid rgba(255,255,255,0.08);' in landing_page
     assert 'min-height: 3.35rem' in landing_page
     assert 'font-weight: 500;' in landing_page
-    assert 'background: linear-gradient(180deg, rgba(34, 26, 31, 0.56), rgba(19, 15, 19, 0.48));' in landing_page
-    assert 'border: 1px solid rgba(255,255,255,0.09);' in landing_page
+    assert 'max-width: 41rem;' in landing_page
+    assert 'padding: clamp(1.5rem, 4vw, 3.5rem) clamp(0.4rem, 1.2vw, 1rem) clamp(1.1rem, 2vw, 1.8rem);' in landing_page
+    assert 'background: linear-gradient(180deg, rgba(34, 26, 31, 0.56), rgba(19, 15, 19, 0.48));' not in landing_page
+    assert 'border: 1px solid rgba(255,255,255,0.09);' not in landing_page
     assert 'touchstart' in landing_page
     assert 'touchend' in landing_page
     assert 'class="page-track"' in landing_page
@@ -194,6 +196,20 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "navigator.clipboard.writeText" in landing_page
     assert 'id="copy-toast"' in landing_page
     assert "链接已复制" in landing_page
+    assert "class=\"hero-card\"" not in landing_page
+    assert "被记住的日子" not in landing_page
+    assert "想留下的，都在这里" not in landing_page
+    assert "环保、阅读、节庆。慢慢放进生活。" not in landing_page
+    assert "个入口" not in landing_page
+    assert "一直看得到" not in landing_page
+    assert "不与法定日重复" not in landing_page
+    assert ".page-track.is-animating" in landing_page
+    assert "this.track?.classList.add('is-animating')" in landing_page
+    assert "button.disabled = disabled;" in landing_page
+    assert "button.setAttribute('aria-disabled', String(disabled));" in landing_page
+    assert "createDepthMist()" in landing_page
+    assert "this.depthMist" in landing_page
+    assert "this.scene.rotation.y = this.pointer.x * 0.12" in landing_page
     assert 'class="enter-stage"' not in landing_page
     assert "进入节日宇宙" not in landing_page
     assert "Menu" not in landing_page
