@@ -79,3 +79,14 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "https://calendar.example.com/all.ics" in landing_page
     assert "https://calendar.example.com/environment.ics" in landing_page
     assert "其他节日（全部）" in landing_page
+    assert 'id="three-scene"' in landing_page
+    assert 'https://unpkg.com/three@0.164.1/build/three.module.js' in landing_page
+    assert "class HolidayParticleField" in landing_page
+    assert 'class="enter-stage"' in landing_page
+    assert "进入节日宇宙" in landing_page
+    assert "Menu" in landing_page
+    assert "ABOUT" in landing_page
+    assert "holiday observance archive" in landing_page
+    assert "将国际节日放进你的日历星图" in landing_page
+    assert "订阅全部节日" in landing_page
+    assert "audio-track" not in landing_page
