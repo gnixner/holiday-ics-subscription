@@ -1,0 +1,296 @@
+- id: world-braille-day
+  name_zh: 世界盲文日
+  name_en: World Braille Day
+  month: 1
+  day: 4
+  categories:
+    - environment
+  description: 关注盲文推广与无障碍阅读的主题日。
+  enabled: true
+  source: manual-curation
+
+- id: international-day-of-education
+  name_zh: 国际教育日
+  name_en: International Day of Education
+  month: 1
+  day: 24
+  categories:
+    - culture-reading
+  description: 强调教育公平与终身学习价值的国际主题日。
+  enabled: true
+  source: manual-curation
+
+- id: international-holocaust-remembrance-day
+  name_zh: 国际大屠杀纪念日
+  name_en: International Holocaust Remembrance Day
+  month: 1
+  day: 27
+  categories:
+    - culture-reading
+  description: 纪念历史并强调和平与反歧视教育的重要性。
+  enabled: true
+  source: manual-curation
+
+- id: valentines-day
+  name_zh: 情人节
+  name_en: Valentine's Day
+  month: 2
+  day: 14
+  categories:
+    - festivals
+  description: 广为人知的表达爱意与情感连接的节日。
+  enabled: true
+  source: manual-curation
+
+- id: international-mother-language-day
+  name_zh: 国际母语日
+  name_en: International Mother Language Day
+  month: 2
+  day: 21
+  categories:
+    - culture-reading
+  description: 倡导语言多样性与母语保护的国际主题日。
+  enabled: true
+  source: manual-curation
+
+- id: international-womens-day
+  name_zh: 国际妇女节
+  name_en: International Women's Day
+  month: 3
+  day: 8
+  categories:
+    - environment
+  description: 关注性别平等与女性权益的国际主题日。
+  enabled: true
+  source: manual-curation
+
+- id: world-water-day
+  name_zh: 世界水日
+  name_en: World Water Day
+  month: 3
+  day: 22
+  categories:
+    - environment
+  description: 提醒公众关注水资源保护与可持续利用。
+  enabled: true
+  source: manual-curation
+
+- id: world-autism-awareness-day
+  name_zh: 世界自闭症关注日
+  name_en: World Autism Awareness Day
+  month: 4
+  day: 2
+  categories:
+    - environment
+  description: 提高社会对自闭症谱系群体的理解与支持。
+  enabled: true
+  source: manual-curation
+
+- id: world-health-day
+  name_zh: 世界卫生日
+  name_en: World Health Day
+  month: 4
+  day: 7
+  categories:
+    - environment
+  description: 呼吁关注全球公共卫生与健康公平。
+  enabled: true
+  source: manual-curation
+
+- id: earth-day
+  name_zh: 地球日
+  name_en: Earth Day
+  month: 4
+  day: 22
+  categories:
+    - environment
+  description: 全球关注环境保护与可持续发展的主题日。
+  enabled: true
+  source: manual-curation
+
+- id: world-book-day
+  name_zh: 世界读书日
+  name_en: World Book Day
+  month: 4
+  day: 23
+  categories:
+    - culture-reading
+  description: 鼓励阅读、出版与知识传播的国际主题日。
+  enabled: true
+  source: manual-curation
+
+- id: international-dance-day
+  name_zh: 国际舞蹈日
+  name_en: International Dance Day
+  month: 4
+  day: 29
+  categories:
+    - culture-reading
+  description: 庆祝舞蹈艺术并推广身体表达与文化交流。
+  enabled: true
+  source: manual-curation
+
+- id: world-press-freedom-day
+  name_zh: 世界新闻自由日
+  name_en: World Press Freedom Day
+  month: 5
+  day: 3
+  categories:
+    - culture-reading
+  description: 强调新闻自由与公共表达空间的重要性。
+  enabled: true
+  source: manual-curation
+
+- id: international-museum-day
+  name_zh: 国际博物馆日
+  name_en: International Museum Day
+  month: 5
+  day: 18
+  categories:
+    - culture-reading
+  description: 鼓励公众走进博物馆，理解文化遗产价值。
+  enabled: true
+  source: manual-curation
+
+- id: world-no-tobacco-day
+  name_zh: 世界无烟日
+  name_en: World No Tobacco Day
+  month: 5
+  day: 31
+  categories:
+    - environment
+  description: 倡导减少烟草危害，推动更健康的生活方式。
+  enabled: true
+  source: manual-curation
+
+- id: world-environment-day
+  name_zh: 世界环境日
+  name_en: World Environment Day
+  month: 6
+  day: 5
+  categories:
+    - environment
+  description: 号召关注生态保护与环境治理的国际主题日。
+  enabled: true
+  source: manual-curation
+
+- id: world-oceans-day
+  name_zh: 世界海洋日
+  name_en: World Oceans Day
+  month: 6
+  day: 8
+  categories:
+    - environment
+  description: 倡导海洋保护、海洋教育与可持续利用。
+  enabled: true
+  source: manual-curation
+
+- id: world-refugee-day
+  name_zh: 世界难民日
+  name_en: World Refugee Day
+  month: 6
+  day: 20
+  categories:
+    - environment
+  description: 关注难民处境、尊严与国际社会支持。
+  enabled: true
+  source: manual-curation
+
+- id: international-youth-day
+  name_zh: 国际青年日
+  name_en: International Youth Day
+  month: 8
+  day: 12
+  categories:
+    - culture-reading
+  description: 关注青年发展、参与和教育机会的国际主题日。
+  enabled: true
+  source: manual-curation
+
+- id: international-literacy-day
+  name_zh: 国际扫盲日
+  name_en: International Literacy Day
+  month: 9
+  day: 8
+  categories:
+    - culture-reading
+  description: 强调读写能力对个人发展与社会进步的重要性。
+  enabled: true
+  source: manual-curation
+
+- id: world-tourism-day
+  name_zh: 世界旅游日
+  name_en: World Tourism Day
+  month: 9
+  day: 27
+  categories:
+    - festivals
+  description: 关注旅游与文化交流对社会和经济的积极作用。
+  enabled: true
+  source: manual-curation
+
+- id: world-teachers-day
+  name_zh: 世界教师日
+  name_en: World Teachers' Day
+  month: 10
+  day: 5
+  categories:
+    - culture-reading
+  description: 致敬教师职业并强调教育工作的重要性。
+  enabled: true
+  source: manual-curation
+
+- id: world-mental-health-day
+  name_zh: 世界精神卫生日
+  name_en: World Mental Health Day
+  month: 10
+  day: 10
+  categories:
+    - environment
+  description: 提醒社会关注心理健康与精神卫生支持。
+  enabled: true
+  source: manual-curation
+
+- id: world-food-day
+  name_zh: 世界粮食日
+  name_en: World Food Day
+  month: 10
+  day: 16
+  categories:
+    - environment
+  description: 聚焦粮食安全、农业与可持续供给问题。
+  enabled: true
+  source: manual-curation
+
+- id: halloween
+  name_zh: 万圣节
+  name_en: Halloween
+  month: 10
+  day: 31
+  categories:
+    - festivals
+  description: 具有广泛文化影响力的国际节庆日。
+  enabled: true
+  source: manual-curation
+
+- id: international-day-for-tolerance
+  name_zh: 国际宽容日
+  name_en: International Day for Tolerance
+  month: 11
+  day: 16
+  categories:
+    - environment
+  description: 倡导宽容、包容与多元共处的公共价值。
+  enabled: true
+  source: manual-curation
+
+- id: christmas-day
+  name_zh: 圣诞节
+  name_en: Christmas Day
+  month: 12
+  day: 25
+  categories:
+    - festivals
+  description: 具有全球文化影响力的节庆日。
+  enabled: true
+  source: manual-curation
