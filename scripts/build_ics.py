@@ -24,21 +24,25 @@ CALENDAR_METADATA = {
         "calendar_name": "其他节日（全部）",
         "page_title": "全部",
         "description": "把这些日子，都留在一起。",
+        "showcase_holidays": ["地球日", "世界读书日", "母亲节", "感恩节"],
     },
     "environment.ics": {
         "calendar_name": "其他节日（环保与社会议题）",
         "page_title": "环保与社会议题",
         "description": "关于地球，也关于彼此。",
+        "showcase_holidays": ["地球日", "世界环境日", "世界海洋日", "植树节"],
     },
     "culture-reading.ics": {
         "calendar_name": "其他节日（文化与阅读）",
         "page_title": "文化与阅读",
         "description": "适合阅读、语言与文化。",
+        "showcase_holidays": ["世界读书日", "国际母语日", "国际博物馆日", "国际教育日"],
     },
     "festivals.ics": {
         "calendar_name": "其他节日（常见节庆）",
         "page_title": "常见节庆",
         "description": "留给那些熟悉的节日。",
+        "showcase_holidays": ["情人节", "复活节", "感恩节", "圣诞节"],
     },
 }
 CATEGORY_TO_FILE = {
@@ -173,8 +177,43 @@ def render_calendar(filename: str, events: list[dict], dtstamp: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def render_index(base_url: str) -> str:
+def build_calendar_holiday_counts(holidays: Iterable[dict]) -> dict[str, int]:
+    counts = {filename: 0 for filename in CALENDAR_METADATA}
+    for holiday in holidays:
+        if not holiday.get("enabled", False):
+            continue
+        counts["all.ics"] += 1
+        for category in holiday.get("categories", []):
+            filename = CATEGORY_TO_FILE.get(category)
+            if filename:
+                counts[filename] += 1
+    return counts
+
+
+def render_holiday_exhibit(metadata: dict, total_count: int) -> list[str]:
+    showcase_holidays = metadata.get("showcase_holidays", [])
+    remaining = max(total_count - len(showcase_holidays), 0)
+    lines = [
+        '            <div class="holiday-exhibit">',
+        '              <p class="holiday-exhibit-label">收录节日</p>',
+        '              <div class="holiday-exhibit-list">',
+    ]
+    for holiday_name in showcase_holidays:
+        lines.append(f'                <span class="holiday-chip">{holiday_name}</span>')
+    if remaining:
+        lines.append(f'                <span class="holiday-chip holiday-chip-more">+{remaining}</span>')
+    lines.extend(
+        [
+            '              </div>',
+            '            </div>',
+        ]
+    )
+    return lines
+
+
+def render_index(base_url: str, holidays: Iterable[dict]) -> str:
     normalized = normalize_base_url(base_url)
+    holiday_counts = build_calendar_holiday_counts(holidays)
     cards: list[str] = []
     for filename, metadata in CALENDAR_METADATA.items():
         href = f"{normalized}/{filename}"
@@ -187,6 +226,7 @@ def render_index(base_url: str) -> str:
                 f'            <p class="eyebrow">{filename}</p>',
                 f'            <h3>{page_title}</h3>',
                 f'            <p class="card-description">{desc}</p>',
+                *render_holiday_exhibit(metadata, holiday_counts.get(filename, 0)),
                 '            <div class="card-actions">',
                 f'              <a class="button button-primary" href="{href}">{primary_cta}</a>',
                 f'              <button class="button button-secondary" type="button" data-copy-url="{href}">复制链接</button>',
@@ -406,7 +446,12 @@ def render_index(base_url: str) -> str:
         "    }",
         "    .eyebrow { margin: 0 0 0.8rem; color: var(--text-soft); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; }",
         "    .subscription-card h3 { margin: 0; font-size: 1.25rem; color: var(--text-strong); }",
-        "    .card-description { margin: 0.8rem 0 1rem; color: var(--text-muted); line-height: 1.75; min-height: 4.8em; }",
+        "    .card-description { margin: 0.8rem 0 0.95rem; color: var(--text-muted); line-height: 1.75; min-height: 4.8em; }",
+        "    .holiday-exhibit { margin: 0 0 1rem; }",
+        "    .holiday-exhibit-label { margin: 0 0 0.65rem; color: var(--text-soft); font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; }",
+        "    .holiday-exhibit-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }",
+        "    .holiday-chip { display: inline-flex; align-items: center; min-height: 1.9rem; padding: 0.38rem 0.72rem; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); color: rgba(231, 221, 216, 0.78); font-size: 0.84rem; line-height: 1; white-space: nowrap; }",
+        "    .holiday-chip-more { color: rgba(244, 229, 236, 0.72); background: rgba(141, 122, 132, 0.12); border-color: rgba(184, 166, 184, 0.18); }",
         "    .card-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }",
         "    .subscription-url { margin: 1rem 0 0; color: var(--text-soft); font-size: 0.82rem; line-height: 1.65; word-break: break-all; }",
         "    .copy-toast {",
@@ -458,7 +503,10 @@ def render_index(base_url: str) -> str:
         "      .subscriptions-header p { margin-top: 0.7rem; line-height: 1.7; max-width: 18rem; }",
         "      .subscription-grid { gap: 0.85rem; }",
         "      .subscription-card { padding: 1.15rem; border-radius: 22px; }",
-        "      .card-description { min-height: 0; margin-bottom: 0.9rem; line-height: 1.68; }",
+        "      .card-description { min-height: 0; margin-bottom: 0.85rem; line-height: 1.68; }",
+        "      .holiday-exhibit { margin-bottom: 0.9rem; }",
+        "      .holiday-exhibit-list { gap: 0.45rem; }",
+        "      .holiday-chip { font-size: 0.8rem; min-height: 1.8rem; padding: 0.35rem 0.66rem; }",
         "      .subscription-url { margin-top: 0.85rem; }",
         "    }",
         "  </style>",
@@ -922,7 +970,7 @@ def build_all_calendars(
         outputs[filename] = str(target)
     if base_url:
         index_target = dist_path / "index.html"
-        index_target.write_text(render_index(base_url), encoding="utf-8")
+        index_target.write_text(render_index(base_url, holidays), encoding="utf-8")
         outputs["index.html"] = str(index_target)
     return outputs
 

@@ -196,6 +196,27 @@ def test_build_all_calendars_writes_expected_files(tmp_path):
     assert "navigator.clipboard.writeText" in landing_page
     assert 'id="copy-toast"' in landing_page
     assert "链接已复制" in landing_page
+    assert "收录节日" in landing_page
+    assert 'class="holiday-exhibit"' in landing_page
+    assert 'class="holiday-exhibit-list"' in landing_page
+    assert 'class="holiday-chip"' in landing_page
+    assert 'class="holiday-chip holiday-chip-more"' in landing_page
+    assert "地球日" in landing_page
+    assert "世界环境日" in landing_page
+    assert "世界海洋日" in landing_page
+    assert "植树节" in landing_page
+    assert "世界读书日" in landing_page
+    assert "国际母语日" in landing_page
+    assert "国际博物馆日" in landing_page
+    assert "国际教育日" in landing_page
+    assert "情人节" in landing_page
+    assert "复活节" in landing_page
+    assert "感恩节" in landing_page
+    assert "圣诞节" in landing_page
+    assert "+34" in landing_page
+    assert "+9" in landing_page
+    assert "+7" in landing_page
+    assert "+10" in landing_page
     assert "class=\"hero-card\"" not in landing_page
     assert "被记住的日子" not in landing_page
     assert "想留下的，都在这里" not in landing_page
